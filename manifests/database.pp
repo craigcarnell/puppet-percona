@@ -22,7 +22,7 @@ define percona::database (
     default => $mgmt_cnf,
   }
 
-  mysql_database { $name:
+  percona_database { $name:
     ensure   => $ensure,
     charset  => $charset,
     mgmt_cnf => $mycnf,

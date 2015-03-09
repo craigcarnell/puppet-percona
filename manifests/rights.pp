@@ -128,11 +128,11 @@ define percona::rights (
 
   if ! defined(Mysql_user["${_user}@${_host}"]) {
     $pwhash = $hash ? {
-      undef   => mysql_password($password),
+      undef   => percona_password($password),
       default => $hash,
     }
 
-    mysql_user { "${_user}@${_host}":
+    percona_user { "${_user}@${_host}":
       ensure        => $ensure,
       password_hash => $pwhash,
       mgmt_cnf      => $mycnf,
@@ -142,7 +142,7 @@ define percona::rights (
     }
   }
 
-  mysql_grant { $grant_name:
+  percona_grant { $grant_name:
     privileges => $priv,
     mgmt_cnf   => $mycnf,
     require    => [
