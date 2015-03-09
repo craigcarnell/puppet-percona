@@ -147,7 +147,7 @@ define percona::rights (
     mgmt_cnf   => $mycnf,
     require    => [
       Service[$::percona::service_name],
-      Mysql_user["${_user}@${_host}"],
+      Percona_user["${_user}@${_host}"],
     ]
   }
 
