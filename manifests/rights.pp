@@ -126,7 +126,7 @@ define percona::rights (
     default => "${_user}@${_host}/${_database}",
   }
 
-  if ! defined(Mysql_user["${_user}@${_host}"]) {
+  if ! defined(Percona_user["${_user}@${_host}"]) {
     $pwhash = $hash ? {
       undef   => percona_password($password),
       default => $hash,
