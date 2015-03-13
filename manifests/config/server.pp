@@ -133,11 +133,13 @@ class percona::config::server {
     }
   }
 
-  file { $logdir :
-    ensure => 'directory',
-    mode   => $config_dir_mode,
-    owner  => $daemon_user,
-    group  => $logdir_group,
+  unless File["${logdir}"] {
+	  file { $logdir :
+	    ensure => 'directory',
+	    mode   => $config_dir_mode,
+	    owner  => $daemon_user,
+	    group  => $logdir_group,
+	  }
   }
 
   if $config_skip != true {
