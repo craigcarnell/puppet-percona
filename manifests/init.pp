@@ -110,7 +110,11 @@ class percona (
   $template         = $percona::params::template,
   $config_dir       = $percona::params::config_dir,
   $config_file      = $percona::params::_config_file,
-
+  
+  $log_bin              = $percona::params::log_bin,
+  $relay_log            = $percona::params::relay_log,
+  $slow_query_log_file  = $percona::params::slow_query_log_file,
+  
 ) inherits percona::params {
 
   $config_include_dir_default = $::percona::params::config_include_dir_default
@@ -131,9 +135,9 @@ class percona (
       'mysqld/socket'                    => $::percona::socket,
       'mysqld/user'                      => $::percona::daemon_user,
       'mysqld/innodb_log_group_home_dir' => $::percona::datadir,
-      'mysqld/log_bin'                   => "${::percona::datadir}/${sanitized_servername}-bin",
-      'mysqld/relay_log'                 => "${::percona::datadir}/${sanitized_servername}-relay",
-      'mysqld/slow_query_log_file'       => "${::percona::logdir}/${::percona::servername}-slow.log",
+      'mysqld/log_bin'                   => $log_bin ? { undef => "${::percona::datadir}/${sanitized_servername}-bin", default => $log_bin },
+      'mysqld/relay_log'                 => $relay_log ? { undef => "${::percona::datadir}/${sanitized_servername}-relay", default => $relay_log },
+      'mysqld/slow_query_log_file'       => $slow_query_log_file ? { undef => "${::percona::logdir}/${::percona::servername}-slow.log", default => $slow_query_log_file },
       'mysqld/symbolic-links'            => '0',
 
       'mysqld_safe/log-error'            => $::percona::errorlog,

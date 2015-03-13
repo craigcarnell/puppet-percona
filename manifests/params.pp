@@ -88,7 +88,11 @@ class percona::params (
     '5.5'    => {},
     '5.1'    => {},
     'global' => {},
-  }
+  },
+  
+  $log_bin              = undef,
+  $relay_log            = undef,
+  $slow_query_log_file  = undef,
 ) {
 
   case $::operatingsystem {
