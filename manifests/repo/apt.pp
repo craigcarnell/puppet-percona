@@ -2,7 +2,7 @@
 #
 class percona::repo::apt {
 
-  apt::key { 'CD2EFD2A':
+  apt::key { '430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A':
     ensure => present,
     notify => Exec['percona::repo::apt-get update'],
   }
@@ -14,7 +14,7 @@ class percona::repo::apt {
       source  => false,
       content => template ("${module_name}/repo/sources.list.erb"),
       notify  => Exec['percona::repo::apt-get update'],
-      require => Apt::Key['CD2EFD2A'],
+      require => Apt::Key['430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A'],
     }
   }
 
@@ -27,7 +27,7 @@ class percona::repo::apt {
       release     => $::lsbdistcodename,
       repos       => 'main',
       notify      => Exec['percona::repo::apt-get update'],
-      require     => Apt::Key['CD2EFD2A'],
+      require     => Apt::Key['430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A'],
     }
   }
 
