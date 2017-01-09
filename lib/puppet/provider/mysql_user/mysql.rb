@@ -43,7 +43,7 @@ Puppet::Type.type(:mysql_user).provide(:mysql) do
   end
 
   def password_hash
-    mysql(mysql_args("mysql", "-NBe", "select password from mysql.user where CONCAT(    user, '@', host) = '%s'" % @resource.value(:name))).chomp
+    mysql(mysql_args("mysql", "-NBe", "select authentication_string from mysql.user where CONCAT(    user, '@', host) = '%s'" % @resource.value(:name))).chomp
   end
 
   def password_hash=(string)
